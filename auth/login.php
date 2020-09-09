@@ -27,7 +27,7 @@
                             }
 
                             // validation
-                            // email: required, string, max:100
+                            // email: required, email, max:100
                             if(! isRequired($email)) {
                                 $errors['email'] = "required";
                             } elseif(! isEmail($email)) {
@@ -47,7 +47,30 @@
 
                             // if validation passes
                             if(empty($errors)) {
-                                // 
+                                
+                                // get admin row from database
+                                $admin = getOne("admins", "admin_email = '$email'");
+
+                                if(! empty($admin)) {
+                                    // check that password matches saved in db
+                                    $passwordMatches = password_verify($password, $admin['admin_password']);
+
+                                    if($passwordMatches) {
+                                        // store admin data in session 
+                                        setSession('id', $admin['admin_id']);
+                                        setSession('name', $admin['admin_name']);
+                                        setSession('email', $admin['admin_email']);
+                                        setSession('type', $admin['admin_type']);
+
+                                        // redirect to admin/index.php
+                                        redirect("admin/index.php");
+                                    } else {
+                                        $errors['password'] = "not correct";
+                                    }
+
+                                } else {
+                                    $errors['email'] = "not correct";
+                                }
                             }
                         }
                     ?>

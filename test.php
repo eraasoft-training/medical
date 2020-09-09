@@ -5,6 +5,5 @@ require_once 'app.php';
 
 // echo isRequired('he');
 
-$errors['email'] = 'required';
-
-getError('email');
+$email = "kareem@erasoft.com";
+getOne('admins', "admin_email = '$email'");

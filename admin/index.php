@@ -1,3 +1,5 @@
+<?php require_once '../app.php'; ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -63,7 +65,7 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0" method="POST" action="#">
+        <form class="form-inline my-2 my-lg-0" method="POST" action="<?php echo URL . "auth/logout.php"; ?>">
             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="logout">Logout</button>
         </form>
        
