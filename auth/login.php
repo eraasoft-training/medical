@@ -21,23 +21,45 @@
                     <h3 class="text-center">Login</h3>
                     <?php 
                         if(isset($_POST['submit'])) {
+                            // decomposing and preparation
                             foreach ($_POST as $key => $value) {
                                 $$key = prepareInput($value);
                             }
 
-                            echo $email;
-                            echo $password;
+                            // validation
+                            // email: required, string, max:100
+                            if(! isRequired($email)) {
+                                $errors['email'] = "required";
+                            } elseif(! isEmail($email)) {
+                                $errors['email'] = "must be valid email";
+                            } elseif(! isNotMoreThan($email, 100)) {
+                                $errors['email'] = "must be <= 100";
+                            }
+
+                            // password: required, string, max:255
+                            if(! isRequired($password)) {
+                                $errors['password'] = "required";
+                            } elseif(! isString($password)) {
+                                $errors['password'] = "must be string";
+                            } elseif(! isNotMoreThan($password, 255)) {
+                                $errors['password'] = "must be <= 255";
+                            }
+
+                            // if validation passes
+                            if(empty($errors)) {
+                                // 
+                            }
                         }
                     ?>
 
                     <div>
                         <form class="border p-5 my-3 " method="POST" action="">
                             <div class="form-group">
-                                <label for="email"  class="text-dark ">Email</label>
+                                <label for="email"  class="text-dark ">Email <?php getError('email');  ?></label>
                                 <input type="email" name="email" class="form-control" id="email">
                             </div>
                             <div class="form-group">
-                                <label for="password"  class="text-dark ">Password</label>
+                                <label for="password"  class="text-dark ">Password <?php getError('password');  ?></label>
                                 <input type="password" name="password" class="form-control" id="password">
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary btn-block">Login</button>
