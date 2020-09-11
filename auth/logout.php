@@ -6,7 +6,7 @@ require_once '../app.php';
 if(isset($_POST['logout']))
 {
   // destroy session
-  session_destroy();
+  endSession();
   
   redirect("auth/login.php");
 }

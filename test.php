@@ -3,7 +3,10 @@
 require_once 'app.php';
 
 
-// echo isRequired('he');
+$_SESSION['name'] = 'kareem';
 
-$email = "kareem@erasoft.com";
-getOne('admins', "admin_email = '$email'");
+print_r($_SESSION);
+
+session_destroy();
+
+print_r($_SESSION);
