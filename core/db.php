@@ -7,7 +7,7 @@ function getOne(string $table, string $where)
 {
   global $conn;
 
-  $sql = "SELECT * FROM $table where $where LIMIT 1";
+  $sql = "SELECT * FROM $table WHERE $where LIMIT 1";
 
   $result = mysqli_query($conn, $sql);
 
@@ -40,9 +40,44 @@ function getAll(string $table): array
 function insert(string $table, array $data): bool
 {
   global $conn;
+  $keys = '';
+  $values = '';
 
-  $sql = "INSERT INTO $table ";
+  foreach ($data as $key => $value) {
+    $keys .= "$key,";
+    $values .= "'$value',";
+  }
 
+  $keys = rtrim($keys, ",");
+  $values = rtrim($values, ",");
+
+  // $keys = array_keys($data);
+  // $values = array_values($data);
+  // $keys = implode(",", $keys);
+  // $values = "'" . implode("','", $values) . "'";
+
+  $sql = "INSERT INTO $table ($keys) VALUES ($values) ";
+
+  if (mysqli_query($conn, $sql)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function update(string $table, array $data, string $where): bool
+{
+  global $conn;
+  
+  $set = '';
+  foreach ($data as $key => $value) {
+   $set .= "$key = '$value',";
+  }
+
+  $set = rtrim($set, ",");
+
+  $sql = "UPDATE $table SET $set WHERE $where";
+  
   if (mysqli_query($conn, $sql)) {
     return true;
   } else {

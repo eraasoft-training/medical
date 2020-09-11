@@ -2,7 +2,21 @@
 
 <?php include ADMIN . 'inc/header.php'; ?>
 
+<?php 
 
+if(isset($_GET['city_id']) and is_numeric($_GET['city_id'])) {
+
+    $city_id = $_GET['city_id'];
+    $row = getOne("cities", "city_id = '$city_id'");
+
+    if(empty($row)) {
+        abort();
+    }
+} else {
+    aredirect("city/view.php");
+}
+
+?>
 
 <div class="container">
     <div class="row">

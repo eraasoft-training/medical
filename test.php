@@ -2,4 +2,11 @@
 
 require_once 'app.php';
 
-$name = 'domiat';
+$data = [
+  'name' => 'ahmed',
+  'age' => '75',
+  'len' => '75',
+  'wid' => '75',
+];
+
+update("users", $data);
