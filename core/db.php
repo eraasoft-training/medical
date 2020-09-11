@@ -2,6 +2,7 @@
 
 $conn = mysqli_connect(DB_SERVERNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
+// get one row by id
 function getOne(string $table, string $where)
 {
   global $conn;
@@ -14,6 +15,23 @@ function getOne(string $table, string $where)
     // output data of each row
     $row = mysqli_fetch_assoc($result);
     return $row;
+  } else {
+    return [];
+  }
+}
+
+// get all rows 
+function getAll(string $table): array 
+{
+  global $conn;
+
+  $sql = "SELECT * FROM $table";
+
+  $result = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
   } else {
     return [];
   }

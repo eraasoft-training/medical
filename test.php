@@ -3,10 +3,6 @@
 require_once 'app.php';
 
 
-$_SESSION['name'] = 'kareem';
-
-print_r($_SESSION);
-
-session_destroy();
-
-print_r($_SESSION);
+echo '<pre>';
+print_r(getAll('cities'));
+echo '</pre>';
