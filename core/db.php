@@ -36,3 +36,16 @@ function getAll(string $table): array
     return [];
   }
 }
+
+function insert(string $table, array $data): bool
+{
+  global $conn;
+
+  $sql = "INSERT INTO $table ";
+
+  if (mysqli_query($conn, $sql)) {
+    return true;
+  } else {
+    return false;
+  }
+}

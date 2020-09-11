@@ -1,5 +1,6 @@
 <?php 
 
+$success = "";
 $errors = [];
 
 function isRequired($input): bool
